@@ -54,44 +54,40 @@ let vowelBonusScorer = function(word) {
 }
 
 let scrabbleScorer = function(word) {
-   word = word.toLowerCase(); 
-   let score = 0; 
-   for (let i = 0; i < word.length; i++) {
-      for (key in newPointStructure) {
-        if (word.includes(key)) {
-          score += newPointStructure.key;
-        }
-      }
-    }
-    // when you get back, figure out why this is returning NaN!!
-   console.log(String(score))
-   console.log(typeof(score))
-   return(score);
-};
+	word = word.toLowerCase();
+	let score = 0;
+	for (let i = 0; i < word.length; i++) {
+	  for (const letter in newPointStructure) {
+		 if (letter === word[i]) {
+			score += Number(newPointStructure[letter]);
+		 }
+	  }
+	}
+	return score;
+ }
 
 let simpleScore = {
    name: 'Simple Score',
    description: 'Each letter is worth 1 point.',
-   scoringFunction: simpleScorer
+   scorerFunction: simpleScorer
 }
 
 let bonusVowels = {
    name: 'Bonus Vowels',
    description: 'Vowels are 3 pts, consonants are 1 pt.', 
-   scoringFunction: vowelBonusScorer
+   scorerFunction: vowelBonusScorer
 }
 
 let scrabble = {
    name: 'Scrabble', 
    description: 'The traditional scoring algorithm', 
-   scoringFunction: scrabbleScorer
+   scorerFunction: scrabbleScorer
 }
 
 const scoringAlgorithms = [simpleScore, bonusVowels, scrabble];
 
 function scorerPrompt() {
    return input.question("Enter 0, 1, or 2: ");
-   //return scoringAlgorithms[algorithmType]; 
 }
 
 function transform(pointStructure) {
