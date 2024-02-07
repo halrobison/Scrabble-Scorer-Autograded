@@ -29,8 +29,7 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 let initialPrompt = function() {
-   word = input.question("Let's play some scrabble!\n\nEnter a word to score: ");
-   return word;
+   return input.question("Let's play some scrabble!\n\nEnter a word to score: ");
 };
 
 let simpleScorer = function(word) {
@@ -54,7 +53,21 @@ let vowelBonusScorer = function(word) {
    return score;
 }
 
-let scrabbleScorer;
+let scrabbleScorer = function(word) {
+   word = word.toLowerCase(); 
+   let score = 0; 
+   for (let i = 0; i < word.length; i++) {
+      for (key in newPointStructure) {
+        if (word.includes(key)) {
+          score += newPointStructure.key;
+        }
+      }
+    }
+    // when you get back, figure out why this is returning NaN!!
+   console.log(String(score))
+   console.log(typeof(score))
+   return(score);
+};
 
 let simpleScore = {
    name: 'Simple Score',
@@ -71,20 +84,28 @@ let bonusVowels = {
 let scrabble = {
    name: 'Scrabble', 
    description: 'The traditional scoring algorithm', 
-   scoringFunction: oldScrabbleScorer
+   scoringFunction: scrabbleScorer
 }
 
 const scoringAlgorithms = [simpleScore, bonusVowels, scrabble];
 
 function scorerPrompt() {
-   let algorithmType = input.question("Enter 0, 1, or 2: ");
+   return input.question("Enter 0, 1, or 2: ");
    //return scoringAlgorithms[algorithmType]; 
-   return algorithmType;
 }
 
-function transform() {};
+function transform(pointStructure) {
+   let newPointStructure = {};
+   for (key in pointStructure) {
+      let value = pointStructure[key]
+      for (i = 0; i < value.length; i++) {
+         newPointStructure[pointStructure[key][i].toLowerCase()] = Number(key);
+      }
+   }
+   return newPointStructure;
+};
 
-let newPointStructure;
+let newPointStructure = transform(oldPointStructure)
 
 function runProgram() {
    let word = initialPrompt(); 
