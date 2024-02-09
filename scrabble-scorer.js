@@ -110,7 +110,7 @@ function runProgram() {
    1: ${scoringAlgorithms[1].name}: ${scoringAlgorithms[1].description}\n
    2: ${scoringAlgorithms[2].name}: ${scoringAlgorithms[2].description}\n`)
    let chosenAlgorithm = scorerPrompt(); 
-   console.log(`Score for '${word}': ${scoringAlgorithms[chosenAlgorithm].scoringFunction(word)}`)
+   console.log(`Score for '${word}': ${scoringAlgorithms[chosenAlgorithm].scorerFunction(word)}`)
 }
 
 
